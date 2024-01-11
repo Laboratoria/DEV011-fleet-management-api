@@ -13,7 +13,7 @@ public class Trajectorie {
 
     @ManyToOne
     @JoinColumn(name = "taxi_id")
-    @Column(name = "taxi_id")
+    @Column(name = "taxi_id", insertable = false, updatable = false)
     private Integer taxiId;
 
     private Date date;

@@ -8,9 +8,10 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "taxis")
-public class Taxi  implements Serializable {
+public class TaxiEntity implements Serializable {
 
     @Id
     @Column(name = "id")

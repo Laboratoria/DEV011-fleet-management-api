@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "trajectories")
-public class Trajectories implements Serializable {
+public class TrajectoryEntity implements Serializable {
     @Id
 
     @Column(name = "id")

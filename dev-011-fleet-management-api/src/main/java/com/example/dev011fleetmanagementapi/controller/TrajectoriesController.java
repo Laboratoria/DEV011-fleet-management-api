@@ -1,36 +1,34 @@
 package com.example.dev011fleetmanagementapi.controller;
 
-import com.example.dev011fleetmanagementapi.model.entity.Trajectories;
-import com.example.dev011fleetmanagementapi.service.ITrajectories;
+import com.example.dev011fleetmanagementapi.model.entity.TrajectoryEntity;
+import com.example.dev011fleetmanagementapi.service.ITrajectory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api/v1")
 public class TrajectoriesController {
 
     @Autowired
-    private ITrajectories iTrajectoriesService;
+    private ITrajectory iTrajectoriesService;
 
     @PostMapping("trajectory")
-    public Trajectories create(@RequestBody Trajectories trajectories){
+    public TrajectoryEntity create(@RequestBody TrajectoryEntity trajectories){
         return iTrajectoriesService.save(trajectories);
     }
     @PutMapping("trajectory")
-    public Trajectories update(@RequestBody Trajectories trajectories){
+    public TrajectoryEntity update(@RequestBody TrajectoryEntity trajectories){
         return iTrajectoriesService.update(trajectories);
     }
 
     @DeleteMapping("trajectory/{id}")
     public void delete(@PathVariable Integer id){
-        Trajectories trajectoriesToDelete = iTrajectoriesService.findById(id);
+        TrajectoryEntity trajectoriesToDelete = iTrajectoriesService.findById(id);
         iTrajectoriesService.delete(trajectoriesToDelete);
     }
 
     @GetMapping("trajectory/{id}")
-    public Trajectories getById(@PathVariable Integer id){
+    public TrajectoryEntity getById(@PathVariable Integer id){
         return iTrajectoriesService.findById(id);
     }
 }

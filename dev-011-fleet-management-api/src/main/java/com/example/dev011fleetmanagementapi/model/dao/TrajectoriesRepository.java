@@ -1,7 +1,11 @@
 package com.example.dev011fleetmanagementapi.model.dao;
 
+import com.example.dev011fleetmanagementapi.model.entity.TaxiEntity;
 import com.example.dev011fleetmanagementapi.model.entity.TrajectoryEntity;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TrajectoriesRepository extends CrudRepository<TrajectoryEntity, Integer> {
+import java.util.List;
+
+public interface TrajectoriesRepository extends JpaRepository<TrajectoryEntity, Integer> {
+    List<TrajectoryEntity> findByTaxi(TaxiEntity taxi);
 }

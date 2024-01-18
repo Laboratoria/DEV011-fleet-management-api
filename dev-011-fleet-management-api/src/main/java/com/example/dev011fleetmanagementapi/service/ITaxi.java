@@ -1,13 +1,14 @@
 package com.example.dev011fleetmanagementapi.service;
 
 
-import com.example.dev011fleetmanagementapi.model.dto.TaxiDto;
 import com.example.dev011fleetmanagementapi.model.entity.TaxiEntity;
 
+import java.sql.SQLException;
+
 public interface ITaxi {
-    TaxiDto save(TaxiEntity taxiEntity);
-    TaxiDto findById(Integer id);
-    TaxiDto delete (Integer id) throws Exception;
+    TaxiEntity save(TaxiEntity taxiEntity) throws SQLException;
+    TaxiEntity findById(Integer id) throws SQLException;
+    TaxiEntity delete (Integer id) throws Exception;
     Iterable<TaxiEntity> findAll ();
-    TaxiDto update(TaxiEntity taxiEntity);
+    TaxiEntity update(TaxiEntity taxiEntity, Integer id) throws org.springframework.dao.DataAccessException, SQLException;
 }

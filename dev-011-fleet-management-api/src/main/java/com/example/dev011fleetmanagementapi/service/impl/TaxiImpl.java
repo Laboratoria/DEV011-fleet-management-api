@@ -1,13 +1,14 @@
 package com.example.dev011fleetmanagementapi.service.impl;
 
 import com.example.dev011fleetmanagementapi.model.dao.TaxisRepository;
-import com.example.dev011fleetmanagementapi.model.dto.TaxiDto;
 import com.example.dev011fleetmanagementapi.model.entity.TaxiEntity;
 import com.example.dev011fleetmanagementapi.service.ITaxi;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.Objects;
 
 @Service
@@ -16,60 +17,75 @@ public class TaxiImpl implements ITaxi {
 
     @Autowired
     private TaxisRepository taxisRepository;
-    //private TaxiDto taxiDto;
-    @Transactional
-    @Override
-    public TaxiDto save(TaxiEntity taxiEntity) {
-        taxisRepository.save(taxiEntity);
-        TaxiDto taxiDtoSaved = new TaxiDto(taxiEntity.getId(),taxiEntity.getPlate());
-        return taxiDtoSaved;
-    }
-
+    //private TaxiEntity taxiDto;
 
     @Transactional(readOnly = true)
-    @Override
-    public TaxiDto findById(Integer id) {
-        TaxiEntity taxiDB = taxisRepository.findById(id).orElse(null);
-        return new TaxiDto(taxiDB.getId(), taxiDB.getPlate());
-    }
-
-    @Transactional
-    @Override
-    public TaxiDto delete(Integer id) {
-        TaxiEntity taxiDB = taxisRepository.findById(id).orElse(null);
-        TaxiDto taxiDtoToDelete = findById(id);
-        taxisRepository.delete(taxiDB);
-        return taxiDtoToDelete;
-
-//        Map<String, Object> response = new HashMap<>();
-//
-//        if (taxiDB != null){
-//            taxisRepository.delete(taxiDB);
-//            return new ResponseEntity<>(taxiDtoToDelete, HttpStatus.OK);
-//        } else {
-//            response.put("mensaje", "ID invalido");
-//            response.put("taxi", null);
-//            response.put("id", id);
-//            return new ResponseEntity<>(taxiDtoToDelete, HttpStatus.NOT_FOUND);
-//        }
-    }
-
-    @Transactional
     @Override
     public Iterable<TaxiEntity> findAll() {
         return taxisRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public TaxiEntity findById(Integer id) throws SQLException {
+        TaxiEntity taxiDB = taxisRepository.findById(id).orElse(null);
+        if (Objects.isNull(taxiDB)){
+            throw new SQLException("No existe un Taxi con ese ID");
+        } else {
+            return new TaxiEntity(taxiDB.getId(), taxiDB.getPlate());
+        }
+    }
+
     @Transactional
     @Override
-    public TaxiDto update(TaxiEntity taxiEntity) {
-        TaxiDto taxiToUpdate = findById(taxiEntity.getId());
-        if ((taxiEntity.getId() == null) | (!Objects.equals(taxiEntity.getId(), taxiToUpdate.getId()))){
-            return null;
+    public TaxiEntity save(TaxiEntity taxiEntity) throws SQLException {
+        if (Objects.isNull(taxiEntity)){
+            throw new SQLException("No se puede guardar un taxi sin información");
+        } else if (Objects.isNull(taxiEntity.getPlate()) | taxiEntity.getPlate() ==""){
+            throw new SQLException("Falta información de atributo: 'plate'");
+        } else if (taxiEntity.getPlate().length() != 9){
+            throw new SQLException("'plate' debe tener una longitud de 9 (ejemplo: XXXX-0000 )");
         } else {
             taxisRepository.save(taxiEntity);
-            TaxiDto taxiDtoSaved = new TaxiDto(taxiEntity.getId(),taxiEntity.getPlate());
-            return taxiDtoSaved;
+            return new TaxiEntity(taxiEntity.getId(),taxiEntity.getPlate());
+        }
+    }
+
+    @Transactional
+    @Override
+    public TaxiEntity update(TaxiEntity taxiEntity, Integer id) throws DataAccessException, SQLException {
+        TaxiEntity taxiToUpdate = findById(id);
+        System.out.println("-------entra a update");
+        System.out.println(taxiToUpdate);
+        if (Objects.isNull(taxiToUpdate)){
+            System.out.println("-------No existe un taxi con ese ID");
+            throw new DataAccessException("No existe un taxi con ese ID") {
+            };
+        } else if (!Objects.equals(taxiEntity.getId(), taxiToUpdate.getId())) {
+            System.out.println("-------No puede modificar el ID del taxi");
+            throw new DataAccessException("No puede modificar el ID del taxi"){};
+        } else if (Objects.isNull(taxiEntity.getPlate()) | taxiEntity.getPlate() ==""){
+            throw new SQLException("Falta información de atributo: 'plate'");
+        } else if (taxiEntity.getPlate().length() != 9){
+            throw new SQLException("'plate' debe tener una longitud de 9 (ejemplo: XXXX-0000 )");
+        } else {
+
+            System.out.println("-------entra a else");
+            taxisRepository.save(taxiEntity);
+            return new TaxiEntity(taxiEntity.getId(),taxiEntity.getPlate());
+        }
+    }
+
+    @Transactional
+    @Override
+    public TaxiEntity delete(Integer id) throws SQLException {
+        TaxiEntity taxiDB = taxisRepository.findById(id).orElse(null);
+        if (Objects.nonNull(taxiDB)) {
+            TaxiEntity taxiDtoToDelete = findById(id);
+            taxisRepository.delete(taxiDB);
+            return taxiDtoToDelete;
+        } else {
+            throw new SQLException("No existe un Taxi con ese ID");
         }
     }
 }

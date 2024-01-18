@@ -18,8 +18,10 @@ public class TrajectoryEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @Column(name = "taxi_id")
-    private Integer taxi_id;
+
+    @ManyToOne
+    @JoinColumn(name = "taxi_id", referencedColumnName = "id")
+    private TaxiEntity taxi;
 
     @Column(name = "date")
     private Timestamp date;

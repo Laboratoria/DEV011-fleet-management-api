@@ -4,6 +4,7 @@ import com.example.dev011fleetmanagementapi.model.entity.TaxiEntity;
 import com.example.dev011fleetmanagementapi.model.entity.TrajectoryEntity;
 import com.example.dev011fleetmanagementapi.service.ITaxi;
 import com.example.dev011fleetmanagementapi.service.ITrajectory;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,19 +23,17 @@ public class TrajectoriesController {
     @Autowired
     private ITaxi iTaxiService;
 
-    @GetMapping("trajectories/{id}")
-    public Object getAll(@PathVariable Integer id) throws SQLException {
+    @GetMapping("trajectories/{id}/{page}/{sizePage}")
+    public Object getAll(@PathVariable Integer id, @PathVariable Integer page, @PathVariable Integer sizePage) throws SQLException {
 
         TaxiEntity taxi = iTaxiService.findById(id);
         if (taxi != null) {
-            Iterable<TrajectoryEntity> trajectories = iTrajectoriesService.getAllByTaxi(taxi);
+            Iterable<TrajectoryEntity> trajectories = iTrajectoriesService.getAllByTaxi(taxi, page, sizePage);
             // Ahora 'trajectories' contiene todas las instancias de TrajectoryEntity asociadas con el taxi especificado.
             return trajectories;
         }
         return null;
 
-
-        //return iTrajectoriesService.findAll( offSet, pageSize);
     }
 
     @GetMapping("trajectory/{id}")

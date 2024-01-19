@@ -5,10 +5,14 @@ import com.example.dev011fleetmanagementapi.model.entity.TaxiEntity;
 import com.example.dev011fleetmanagementapi.model.entity.TrajectoryEntity;
 import com.example.dev011fleetmanagementapi.service.ITrajectory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class TrajectoryImpl implements ITrajectory {
@@ -18,16 +22,19 @@ public class TrajectoryImpl implements ITrajectory {
 
     @Transactional(readOnly = true)
     @Override
-    public Iterable<TrajectoryEntity> findAll(Integer offSet, Integer pageSize) {
-        return trajectoriesRepository.findAll(PageRequest.of(offSet,pageSize).withSort(Sort.by(Sort.Direction.ASC, "date")));
+    public Iterable<TrajectoryEntity> findAll(Integer page, Integer pageSize) {
+        return trajectoriesRepository.findAll(PageRequest.of(page,pageSize).withSort(Sort.by(Sort.Direction.ASC, "date")));
     }
-
 
     @Transactional(readOnly = true)
     @Override
-    public Iterable<TrajectoryEntity> getAllByTaxi(TaxiEntity taxi) {
-        return trajectoriesRepository.findByTaxi(taxi);
-    }
+    public List<TrajectoryEntity> getAllByTaxi(TaxiEntity taxi, Integer page, Integer pageSize) {
+
+        Sort sort = Sort.by(Sort.Direction.DESC, "date");
+        Pageable pageable = PageRequest.of(page, pageSize, sort);
+        return trajectoriesRepository.findByTaxi(taxi, pageable);
+
+            }
 
     @Transactional
     @Override

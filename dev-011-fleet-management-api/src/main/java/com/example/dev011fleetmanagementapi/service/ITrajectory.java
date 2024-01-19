@@ -2,20 +2,21 @@ package com.example.dev011fleetmanagementapi.service;
 
 import com.example.dev011fleetmanagementapi.model.entity.TaxiEntity;
 import com.example.dev011fleetmanagementapi.model.entity.TrajectoryEntity;
-import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.sql.SQLException;
 
 public interface ITrajectory {
 
-    @Transactional(readOnly = true)
-    List<TrajectoryEntity> getAllByTaxi(TaxiEntity taxi, Integer page, Integer pageSize);
+    Iterable<TrajectoryEntity> getAllTrajectories(Integer offSet, Integer pageSize);
 
-    TrajectoryEntity save(TrajectoryEntity trajectory);
-    TrajectoryEntity findById(Integer id);
-    Iterable<TrajectoryEntity> findAll(Integer offSet, Integer pageSize);
+    Iterable<TrajectoryEntity> getTrajectoriesByTaxi(TaxiEntity taxi, Integer page, Integer pageSize);
 
-    void delete (TrajectoryEntity trajectory);
-    TrajectoryEntity update(TrajectoryEntity trajectory);
+    TrajectoryEntity getOneTrajectoryById(Integer id) throws SQLException;
+
+    TrajectoryEntity saveOneTrajectory(TrajectoryEntity trajectory) throws Exception;
+
+    TrajectoryEntity updateOneTrajectory(TrajectoryEntity trajectory, Integer id) throws SQLException;
+    TrajectoryEntity deleteOneTrajectoryById(Integer id) throws SQLException;
+
+    Iterable<TrajectoryEntity> deleteTrajectoriesByTaxiId(Integer id) throws SQLException;
 }

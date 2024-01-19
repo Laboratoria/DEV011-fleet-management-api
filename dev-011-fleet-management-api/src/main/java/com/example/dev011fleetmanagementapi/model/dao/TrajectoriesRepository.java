@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface TrajectoriesRepository extends JpaRepository<TrajectoryEntity, Integer> {
     List<TrajectoryEntity> findByTaxi(TaxiEntity taxi, Pageable pageable);
+    List<TrajectoryEntity> findByTaxi(TaxiEntity taxi);
 }

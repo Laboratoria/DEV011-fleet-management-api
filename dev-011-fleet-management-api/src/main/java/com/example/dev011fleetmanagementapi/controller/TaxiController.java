@@ -19,13 +19,13 @@ public class TaxiController {
     @Autowired
     private ITaxi iTaxiService;
 
-    @GetMapping("taxis")
+    @GetMapping("taxis/{page}/{pageSize}")
     //@ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> getAll(){
+    public ResponseEntity<?> getAll(@PathVariable Integer page, @PathVariable Integer pageSize){
         Map<String,Object> response = new HashMap<>();
 
         try {
-            return new ResponseEntity<>(iTaxiService.findAll(), HttpStatus.OK);
+            return new ResponseEntity<>(iTaxiService.findAllTaxis(page, pageSize), HttpStatus.OK);
         } catch (Error er){
             response.put("message", er.getMessage());
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -37,7 +37,7 @@ public class TaxiController {
     public ResponseEntity<?> getById(@PathVariable Integer id){
         Map<String, Object> response = new HashMap<>();
         try{
-            return new ResponseEntity<>(iTaxiService.findById(id), HttpStatus.OK);
+            return new ResponseEntity<>(iTaxiService.findTaxiById(id), HttpStatus.OK);
         } catch (SQLException ex){
             response.put("mensaje", ex.getMessage());
             response.put("taxi", null);
@@ -55,7 +55,7 @@ public class TaxiController {
     public ResponseEntity<?> create(@RequestBody TaxiEntity taxiEntity){
         Map<String, Object> response = new HashMap<>();
         try {
-            return new ResponseEntity<>(iTaxiService.save(taxiEntity),HttpStatus.CREATED);
+            return new ResponseEntity<>(iTaxiService.saveTaxi(taxiEntity),HttpStatus.CREATED);
         } catch (SQLException ex){
             response.put("mensaje", ex.getMessage());
             response.put("plate", taxiEntity.getPlate());
@@ -72,7 +72,7 @@ public class TaxiController {
     public ResponseEntity<?> update(@RequestBody TaxiEntity taxiEntity, @PathVariable Integer id){
         Map<String, Object> response = new HashMap<>();
         try{
-            return new ResponseEntity<>(iTaxiService.update(taxiEntity, id), HttpStatus.OK);
+            return new ResponseEntity<>(iTaxiService.updateTaxi(taxiEntity, id), HttpStatus.OK);
         } catch (DataAccessException|SQLException ex){
             response.put("mensaje", ex.getMessage());
             response.put("taxi", null);
@@ -91,7 +91,7 @@ public class TaxiController {
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         Map<String, Object> response = new HashMap<>();
         try {
-            return new ResponseEntity<>(iTaxiService.delete(id), HttpStatus.OK);
+            return new ResponseEntity<>(iTaxiService.deleteTaxi(id), HttpStatus.OK);
         } catch (SQLException ex){
             response.put("mensaje", ex.getMessage());
             response.put("taxi", null);

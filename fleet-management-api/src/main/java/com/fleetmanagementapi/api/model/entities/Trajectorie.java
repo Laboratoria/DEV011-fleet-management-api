@@ -13,8 +13,7 @@ public class Trajectorie {
 
     @ManyToOne
     @JoinColumn(name = "taxi_id")
-    @Column(name = "taxi_id", insertable = false, updatable = false)
-    private Integer taxiId;
+    private Taxi taxi;
 
     private Date date;
 
@@ -29,12 +28,12 @@ public class Trajectorie {
         this.id = id;
     }
 
-    public Integer getTaxiId() {
-        return taxiId;
+    public Taxi getTaxi() {
+        return taxi;
     }
 
-    public void setTaxiId(Integer taxiId) {
-        this.taxiId = taxiId;
+    public void setTaxi(Taxi taxi) {
+        this.taxi = taxi;
     }
 
     public Date getDate() {

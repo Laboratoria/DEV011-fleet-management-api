@@ -17,9 +17,6 @@ public class Taxi {
         return id;
     }
 
-    @OneToMany(mappedBy = "taxiId")
-    List<Trajectorie> trajectories;
-
     public void setId(Integer id) {
         this.id = id;
     }

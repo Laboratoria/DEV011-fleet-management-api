@@ -1,18 +1,20 @@
 package com.fleetmanagementapi.api.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Date;
 
 @Entity
 @Table(name="trajectories")
-public class Trajectorie {
+public class Trajectory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "taxi_id")
+    @JsonIgnore
     private Taxi taxi;
 
     private Date date;

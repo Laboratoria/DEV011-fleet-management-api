@@ -1,16 +1,11 @@
-package com.fleetmanagementapi.api.model.entities;
+package com.fleetmanagementapi.api.model.repository;
 
-import com.fleetmanagementapi.api.model.repository.TaxiCrudRepository;
+import com.fleetmanagementapi.api.model.entities.Taxi;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-public class TaxiRepository implements TaxiCrudRepository {
-
-    public Object findAll(Taxi taxi) {
-        return null;
-    }
-
+public class TaxiCrudRepositoryImpl implements TaxiCrudRepository {
     @Override
     public Iterable<Taxi> findAll(Sort sort) {
         return null;

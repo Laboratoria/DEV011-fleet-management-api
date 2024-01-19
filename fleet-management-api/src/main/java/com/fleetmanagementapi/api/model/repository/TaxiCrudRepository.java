@@ -6,4 +6,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface TaxiCrudRepository extends PagingAndSortingRepository<Taxi, Integer> {
 
+
 }

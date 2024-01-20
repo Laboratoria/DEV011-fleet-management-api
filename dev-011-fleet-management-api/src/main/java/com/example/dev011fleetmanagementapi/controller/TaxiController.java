@@ -2,6 +2,7 @@ package com.example.dev011fleetmanagementapi.controller;
 
 import com.example.dev011fleetmanagementapi.model.entity.TaxiEntity;
 import com.example.dev011fleetmanagementapi.service.ITaxi;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -19,9 +20,11 @@ public class TaxiController {
     @Autowired
     private ITaxi iTaxiService;
 
-    @GetMapping("taxis/{page}/{pageSize}")
+    @GetMapping("taxis")
+    @Operation(summary = "Get all taxis",
+            description = "No params required, get all trajectories of all taxis")
     //@ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> getAll(@PathVariable Integer page, @PathVariable Integer pageSize){
+    public ResponseEntity<?> getAll(@RequestParam Integer page, @RequestParam Integer pageSize){
         Map<String,Object> response = new HashMap<>();
 
         try {
@@ -32,9 +35,11 @@ public class TaxiController {
         }
     }
 
-    @GetMapping("taxi/{id}")
+    @GetMapping("taxi")
+    @Operation(summary = "Get one taxi",
+            description = "id must exist as a query param")
     //@ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> getById(@PathVariable Integer id){
+    public ResponseEntity<?> getById(@RequestParam Integer id){
         Map<String, Object> response = new HashMap<>();
         try{
             return new ResponseEntity<>(iTaxiService.findTaxiById(id), HttpStatus.OK);
@@ -51,6 +56,8 @@ public class TaxiController {
     }
 
     @PostMapping("taxi")
+    @Operation(summary = "Post one taxi",
+            description = "Body must exists with valid values")
     //@ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> create(@RequestBody TaxiEntity taxiEntity){
         Map<String, Object> response = new HashMap<>();
@@ -67,9 +74,11 @@ public class TaxiController {
         }
     }
 
-    @PutMapping("taxi/{id}")
+    @PutMapping("taxi")
+    @Operation(summary = "Put one taxi by id",
+            description = "Body must exists with valid values")
     //@ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> update(@RequestBody TaxiEntity taxiEntity, @PathVariable Integer id){
+    public ResponseEntity<?> update(@RequestBody TaxiEntity taxiEntity, @RequestParam Integer id){
         Map<String, Object> response = new HashMap<>();
         try{
             return new ResponseEntity<>(iTaxiService.updateTaxi(taxiEntity, id), HttpStatus.OK);
@@ -86,9 +95,11 @@ public class TaxiController {
         }
     }
 
-    @DeleteMapping("taxi/{id}")
+    @DeleteMapping("taxi")
+    @Operation(summary = "Delete one taxi by id",
+            description = "id of taxi must exists as a query param")
     //@ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<?> delete(@PathVariable Integer id) {
+    public ResponseEntity<?> delete(@RequestParam Integer id) {
         Map<String, Object> response = new HashMap<>();
         try {
             return new ResponseEntity<>(iTaxiService.deleteTaxi(id), HttpStatus.OK);

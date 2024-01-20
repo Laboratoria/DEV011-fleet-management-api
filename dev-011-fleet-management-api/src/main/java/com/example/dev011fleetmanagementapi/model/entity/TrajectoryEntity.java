@@ -1,5 +1,6 @@
 package com.example.dev011fleetmanagementapi.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,12 +16,13 @@ public class TrajectoryEntity implements Serializable {
     @Id
 
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
 
     @ManyToOne
     @JoinColumn(name = "taxi_id", referencedColumnName = "id")
+    //@JsonIgnore
     private TaxiEntity taxi;
 
     @Column(name = "date")

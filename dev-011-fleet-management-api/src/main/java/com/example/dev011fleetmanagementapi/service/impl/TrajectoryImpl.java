@@ -58,9 +58,7 @@ public class TrajectoryImpl implements ITrajectory {
     public TrajectoryEntity saveOneTrajectory(TrajectoryEntity trajectoryEntity) throws Exception {
         if (Objects.isNull(trajectoryEntity)) {
             throw new SQLException("No se puede guardar una trayectoria vacía");
-        } else if (Objects.isNull(trajectoryEntity.getTaxi())){
-            throw new SQLException("No se puede guardar una trayectoria sin un taxi asociado");
-        } else if (Objects.isNull(trajectoryEntity.getTaxi().getPlate()) ||
+        } else  if (Objects.isNull(trajectoryEntity.getTaxi().getPlate()) ||
                 trajectoryEntity.getTaxi().getPlate() =="" ||
                 trajectoryEntity.getTaxi().getPlate().length() != 9){
             throw new SQLException("'plate' ingresada inválido");

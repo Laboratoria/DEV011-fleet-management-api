@@ -4,9 +4,12 @@ import com.example.dev011fleetmanagementapi.model.entity.TaxiEntity;
 import com.example.dev011fleetmanagementapi.model.entity.TrajectoryEntity;
 import com.example.dev011fleetmanagementapi.service.ITaxi;
 import com.example.dev011fleetmanagementapi.service.ITrajectory;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.Operation;
 import org.hibernate.exception.DataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,9 +32,11 @@ public class TrajectoriesController {
     @Autowired
     private ITaxi iTaxiService;
 
-    @GetMapping("trajectories/{page}/{pageSize}")
-    //@ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> getAll(@PathVariable Integer page, @PathVariable Integer pageSize){
+    @GetMapping("trajectories")
+    @Operation(summary = "Get all trajectories",
+            description = "No params required, get all trajectories of all taxis")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> getAll(@RequestParam Integer page, @RequestParam Integer pageSize){
         Map<String,Object> response = new HashMap<>();
         try {
             return new ResponseEntity<>(iTrajectoriesService.getAllTrajectories(page, pageSize), HttpStatus.OK);
@@ -41,13 +46,16 @@ public class TrajectoriesController {
         }
     }
 
-    @GetMapping("trajectories/taxi-id/{idTaxi}/{page}/{sizePage}")
-    public ResponseEntity<?> getAllByTaxi(@PathVariable Integer idTaxi, @PathVariable Integer page, @PathVariable Integer sizePage) {
+    @GetMapping("trajectories-by-taxi")
+    @Operation(summary = "Get all by idTaxi",
+            description = "idTaxi, page and pageSize must exist as a query param")
+    public ResponseEntity<?> getAllByTaxi(@RequestParam Integer idTaxi, @RequestParam Integer page, @RequestParam Integer pageSize) {
         Map<String,Object> response = new HashMap<>();
         try{
+
             TaxiEntity taxi = iTaxiService.findTaxiById(idTaxi);
 
-            Iterable<TrajectoryEntity> trajectory = iTrajectoriesService.getTrajectoriesByTaxi(taxi, page,sizePage);
+            Iterable<TrajectoryEntity> trajectory = iTrajectoriesService.getTrajectoriesByTaxi(taxi, page,pageSize);
             return new ResponseEntity<>(trajectory, HttpStatus.OK);
         }catch (SQLException ex){
             response.put("mensaje", ex.getMessage());
@@ -61,8 +69,10 @@ public class TrajectoriesController {
         }
     }
 
-    @GetMapping("trajectory/last/taxi-id/{idTaxi}")
-    public ResponseEntity<?> getLastByTaxi(@PathVariable Integer idTaxi){
+    @GetMapping("last-trajectory")
+    @Operation(summary = "Get last trajectory by taxi",
+            description = "idTaxi must exists as a query param")
+    public ResponseEntity<?> getLastByTaxi(@RequestParam Integer idTaxi){
         Map<String,Object> response = new HashMap<>();
         try{
             TaxiEntity taxi = iTaxiService.findTaxiById(idTaxi);
@@ -80,8 +90,10 @@ public class TrajectoriesController {
         }
     }
 
-    @GetMapping("trajectory/{id}")
-    public ResponseEntity<?> getById(@PathVariable Integer id) {
+    @GetMapping("trajectory")
+    @Operation(summary = "Get one trajectory by id",
+            description = "id of trajectory must exists as a query param")
+    public ResponseEntity<?> getById(@RequestParam Integer id) {
         Map<String,Object> response = new HashMap<>();
         try{
             TrajectoryEntity trajectory = iTrajectoriesService.getOneTrajectoryById(id);
@@ -100,6 +112,8 @@ public class TrajectoriesController {
 
 
     @PostMapping("trajectory")
+    @Operation(summary = "Post one trajectory",
+            description = "Body must exists with valid values")
     public ResponseEntity<?> create(@RequestBody TrajectoryEntity trajectory) {
         Map<String, Object> response = new HashMap<>();
         try {
@@ -115,8 +129,10 @@ public class TrajectoriesController {
         }
     }
 
-    @PutMapping("trajectory/{id}")
-    public ResponseEntity<?> update(@RequestBody TrajectoryEntity trajectory, @PathVariable Integer id) {
+    @PutMapping("trajectory")
+    @Operation(summary = "Put one trajectory by id",
+            description = "Body must exists with valid values")
+    public ResponseEntity<?> update(@RequestBody TrajectoryEntity trajectory, @RequestParam Integer id) {
         Map<String, Object> response = new HashMap<>();
         try {
             return new ResponseEntity<>(iTrajectoriesService.updateOneTrajectory(trajectory,id),HttpStatus.CREATED);
@@ -132,8 +148,10 @@ public class TrajectoriesController {
     }
 
 
-    @DeleteMapping("trajectory/{id}")
-    public ResponseEntity<?> delete(@PathVariable Integer id) {
+    @DeleteMapping("trajectory")
+    @Operation(summary = "Delete one trajectory by id",
+            description = "id of trajectory must exists as a query param")
+    public ResponseEntity<?> delete(@RequestParam Integer id) {
         Map<String, Object> response = new HashMap<>();
         try {
             return new ResponseEntity<>(iTrajectoriesService.deleteOneTrajectoryById(id), HttpStatus.OK) ;

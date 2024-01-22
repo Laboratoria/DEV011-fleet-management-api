@@ -21,9 +21,13 @@ public class TrajectoryController {
     private ITrajectory iTrajectory;
 
     @GetMapping()
-    public Page<Trajectory> getTrajectoriesByTaxiId(@RequestParam Integer taxiId, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date date){
-        PageRequest pageable = PageRequest.of(2, 2);
-        return this.iTrajectory.listTrajectoriesById(pageable, taxiId, date);
+    public Page<Trajectory> getTrajectoriesByTaxiId(
+            @RequestParam Integer taxiId,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "2") int size
+    ){
+        PageRequest pageable = PageRequest.of(page, size);
+        return iTrajectory.listTrajectoriesById(taxiId, date, pageable);
     }
-
 }

@@ -13,11 +13,12 @@ import java.util.Date;
 @Service
 public class TrajectoryImpl implements ITrajectory {
 
+
     @Autowired
     TrajectoryRepository trajectoryRepository;
 
     @Override
-    public Page<Trajectory> listTrajectoriesById(Pageable pageable, Integer taxiId, Date date) {
-        return this.trajectoryRepository.findByTaxiIdAndDate(pageable, taxiId, date);
+    public Page<Trajectory> listTrajectoriesById(Integer taxiId, Date date, Pageable pageable) {
+        return trajectoryRepository.findByTaxiIdAndDate(taxiId, date, pageable);
     }
 }

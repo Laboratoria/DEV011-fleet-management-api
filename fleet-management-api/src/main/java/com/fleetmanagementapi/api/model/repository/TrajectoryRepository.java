@@ -13,6 +13,7 @@ import java.util.Date;
 public interface TrajectoryRepository  extends JpaRepository<Trajectory, Integer> {
 
     //Page<Trajectory> findByTaxiIdAndDate(Integer taxiId, Date date, Pageable pageable);
+    //nueva consulta
     @Query(value = "SELECT * FROM public.trajectories WHERE taxi_id = ?1 AND Date(date) = ?2", nativeQuery = true)
     Page<Trajectory> findByTaxiIdAndDate(Integer taxiId, Date date, Pageable pageable);
 }

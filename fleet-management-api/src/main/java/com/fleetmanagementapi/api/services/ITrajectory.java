@@ -9,6 +9,6 @@ import java.util.Date;
 
 public interface ITrajectory {
 
-    Page<Trajectory> listTrajectoriesById(Pageable pageable, Integer taxiId, Date date );
+    Page<Trajectory> listTrajectoriesById(Integer taxiId, Date date, Pageable pageable );
 
 }

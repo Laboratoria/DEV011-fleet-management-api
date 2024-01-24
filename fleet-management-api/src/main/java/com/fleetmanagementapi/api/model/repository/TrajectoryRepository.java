@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.List;
 
 @Repository
 public interface TrajectoryRepository  extends JpaRepository<Trajectory, Integer> {
@@ -16,4 +17,7 @@ public interface TrajectoryRepository  extends JpaRepository<Trajectory, Integer
     //nueva consulta
     @Query(value = "SELECT * FROM public.trajectories WHERE taxi_id = ?1 AND Date(date) = ?2", nativeQuery = true)
     Page<Trajectory> findByTaxiIdAndDate(Integer taxiId, Date date, Pageable pageable);
+
+    @Query(value = "SELECT * FROM public.trajectories WHERE taxi_id = ?1 ORDER BY date LIMIT 1", nativeQuery = true)
+    List<Trajectory> findLastTrajectory(Integer taxiId);
 }

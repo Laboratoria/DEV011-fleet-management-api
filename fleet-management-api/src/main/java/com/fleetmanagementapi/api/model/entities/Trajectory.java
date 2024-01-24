@@ -14,7 +14,6 @@ public class Trajectory {
 
     @ManyToOne
     @JoinColumn(name = "taxi_id")
-    @JsonIgnore
     private Taxi taxi;
 
     private Date date;

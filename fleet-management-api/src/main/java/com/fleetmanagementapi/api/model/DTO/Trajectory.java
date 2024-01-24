@@ -1,10 +1,8 @@
 package com.fleetmanagementapi.api.model.DTO;
 
-import jakarta.persistence.Entity;
-
 import java.util.Date;
 
-public class LastTrayectoryDTO {
+public class Trajectory {
     private Integer taxi_id;
     private String plate;
     private Date date;

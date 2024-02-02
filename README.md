@@ -12,7 +12,7 @@ Issue:
 Adicional a eso quiero mejorar la seguridad de la aplicacion
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-# Repaso de Conceptos del Proyecto
+# Isuues:
 
 ## Verbos HTTP
 
@@ -20,11 +20,11 @@ Repasar los conceptos relacionados con los verbos HTTP utilizados en el proyecto
 
 ## Autenticación
 
-Agregar un sistema de autenticación robusto para proteger la aplicación. Puedes considerar opciones como JWT, OAuth, o cualquier otro método seguro.
+Agregar un sistema de autenticación robusto para proteger la aplicación. Considerar opciones como JWT, OAuth, o cualquier otro método seguro.
 
 ## Instalación de Base de Datos Local
 
-Configurar una base de datos local para el desarrollo y pruebas. Puedes utilizar tecnologías como MySQL, PostgreSQL, MongoDB, etc.
+Configurar una base de datos local para el desarrollo y pruebas.
 
 ## Dockerización de la Aplicación
 
@@ -36,7 +36,7 @@ Realizar ajustes y optimizaciones en la base de datos para mejorar el rendimient
 
 ## Exportar Base de Datos a Excel
 
-Implementar una funcionalidad para exportar datos de la base de datos a un archivo Excel. Puedes usar bibliotecas o herramientas que simplifiquen este proceso.
+Implementar una funcionalidad para exportar datos de la base de datos a un archivo Excel. Buscar bibliotecas que lo hagan.
 
 ## Mejoras en la Seguridad
 

@@ -1,5 +1,17 @@
 # Fleet Management Software API
 
+Issue: Quiero repasar los conceptos que aprendi en este proyecto
+-agregar mas verbos http
+-agregar autentificacion
+-instalar DB local
+-Dockerizar la app
+-Optimizar la base de datos
+-Exportar DB a excel
+
+Adicional a eso quiero mejorar la seguridad de la aplicacion
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
 ## Índice
 
 * [1. Preámbulo](#1-preámbulo)

@@ -14,20 +14,25 @@ public class TaxiController {
     @Autowired
     private ITaxi iTaxiService;
 
-    @GetMapping("getTaxis")
-    public Page<Taxi> findAllTaxis(@RequestParam Integer size, @RequestParam Integer nroPage) {
-        PageRequest pageable = PageRequest.of(nroPage, size);
-        return iTaxiService.findAllTaxis(pageable);
-    }
-
     @PostMapping("postTaxi")
     public Taxi saveTaxi(@RequestBody Taxi taxi){
         return iTaxiService.save(taxi);
     }
 
+    @GetMapping("getTaxis")
+    public Page<Taxi> findAllTaxis(@RequestParam Integer size, @RequestParam Integer nroPage) {
+        PageRequest pageable = PageRequest.of(nroPage, size);
+        return iTaxiService.findAllTaxis(pageable);
+    }
+    
     @PutMapping("putTaxi")
     public Taxi updateTaxi(@RequestBody Taxi taxi){
         return iTaxiService.save(taxi);
+    }
+
+    @DeleteMapping("deleteTaxiById")
+    public void deleteTaxiByid(@RequestParam Integer id){
+        iTaxiService.delete(id);
     }
 
 

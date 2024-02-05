@@ -10,7 +10,7 @@ public interface ITaxi {
 
     Taxi save (Taxi taxi);
 
-    void delete(Taxi taxi);
+    void delete(Integer id);
 
 
 

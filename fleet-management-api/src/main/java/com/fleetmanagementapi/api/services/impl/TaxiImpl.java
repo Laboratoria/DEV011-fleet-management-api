@@ -29,7 +29,7 @@ public class TaxiImpl implements ITaxi {
     }
 
     @Override
-    public void delete(Taxi taxi) {
-        taxiRepository.delete(taxi);
+    public void delete(Integer id) {
+        taxiRepository.deleteById(id);
     }
 }

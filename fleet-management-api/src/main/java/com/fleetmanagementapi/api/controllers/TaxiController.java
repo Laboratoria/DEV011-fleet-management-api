@@ -25,6 +25,12 @@ public class TaxiController {
         return iTaxiService.save(taxi);
     }
 
+    @PutMapping("putTaxi")
+    public Taxi updateTaxi(@RequestBody Taxi taxi){
+        return iTaxiService.save(taxi);
+    }
+
+
 
 
 

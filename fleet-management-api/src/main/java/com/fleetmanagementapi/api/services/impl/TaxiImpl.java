@@ -19,7 +19,17 @@ public class TaxiImpl implements ITaxi {
     private TaxiRepositoryJPA taxiRepository;
 
     @Override
-    public Page<Taxi> obtenerTodosLosTaxis(Pageable pageable) {
+    public Page<Taxi> findAllTaxis(Pageable pageable) {
         return taxiRepository.findAll(pageable);
+    }
+
+    @Override
+    public Taxi save(Taxi taxi) {
+        return taxiRepository.save(taxi);
+    }
+
+    @Override
+    public void delete(Taxi taxi) {
+        taxiRepository.delete(taxi);
     }
 }

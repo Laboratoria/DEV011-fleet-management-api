@@ -17,4 +17,6 @@ public interface ITrajectory {
 
     Page<Trajectory> listTrajectoriesById(Integer taxiId, Date date, Pageable pageable );
 
+    public boolean existId(Integer id);
+
 }

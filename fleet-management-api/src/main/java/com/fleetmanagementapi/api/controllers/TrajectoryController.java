@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -41,7 +43,14 @@ public class TrajectoryController {
     }
 
     @DeleteMapping("deleteTrajectory")
-    public void deleteTrajectory(@RequestParam Integer id){
+    public ResponseEntity<String> deleteTrajectory(@RequestParam Integer id){
+        if(iTrajectory.existId(id)){
         iTrajectory.deleteTrajectory(id);
+        return ResponseEntity.noContent().build();
+        }
+        else{
+            String mensajeError = "La trajectoria con el ID " + id + " no existe.";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensajeError);
+        }
     }
 }

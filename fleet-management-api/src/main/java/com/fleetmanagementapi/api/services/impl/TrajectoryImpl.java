@@ -31,4 +31,10 @@ public class TrajectoryImpl implements ITrajectory {
     public Page<Trajectory> listTrajectoriesById(Integer taxiId, Date date, Pageable pageable) {
         return trajectoryRepository.findByTaxiIdAndDate(taxiId, date, pageable);
     }
+
+    @Override
+    public boolean existId(Integer id) {
+        return trajectoryRepository.existsById(id);
+
+    }
 }

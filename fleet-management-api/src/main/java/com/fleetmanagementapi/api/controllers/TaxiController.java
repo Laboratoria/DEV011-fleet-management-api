@@ -5,6 +5,8 @@ import com.fleetmanagementapi.api.services.ITaxi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,7 +18,7 @@ public class TaxiController {
 
     @PostMapping("postTaxi")
     public Taxi saveTaxi(@RequestBody Taxi taxi){
-        return iTaxiService.save(taxi);
+            return iTaxiService.save(taxi);
     }
 
     @GetMapping("getTaxis")
@@ -31,8 +33,14 @@ public class TaxiController {
     }
 
     @DeleteMapping("deleteTaxiById")
-    public void deleteTaxiByid(@RequestParam Integer id){
-        iTaxiService.delete(id);
+    public ResponseEntity<String> deleteTaxiById(@RequestParam Integer id) {
+        if (iTaxiService.existTaxi(id)) {
+            iTaxiService.delete(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            String mensajeError = "El taxi con el ID " + id + " no existe.";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensajeError);
+        }
     }
 
 

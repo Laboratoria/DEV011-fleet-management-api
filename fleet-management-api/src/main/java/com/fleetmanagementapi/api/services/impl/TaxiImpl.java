@@ -32,4 +32,9 @@ public class TaxiImpl implements ITaxi {
     public void delete(Integer id) {
         taxiRepository.deleteById(id);
     }
+
+    @Override
+    public boolean existTaxi(Integer id) {
+        return taxiRepository.existsById(id);
+    }
 }

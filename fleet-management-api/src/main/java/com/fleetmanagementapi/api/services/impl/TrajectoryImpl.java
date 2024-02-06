@@ -18,6 +18,16 @@ public class TrajectoryImpl implements ITrajectory {
     TrajectoryRepository trajectoryRepository;
 
     @Override
+    public Trajectory saveTrajectory(Trajectory trajectory) {
+        return trajectoryRepository.save(trajectory);
+    }
+
+    @Override
+    public void deleteTrajectory(Integer id) {
+        trajectoryRepository.deleteById(id);
+    }
+
+    @Override
     public Page<Trajectory> listTrajectoriesById(Integer taxiId, Date date, Pageable pageable) {
         return trajectoryRepository.findByTaxiIdAndDate(taxiId, date, pageable);
     }

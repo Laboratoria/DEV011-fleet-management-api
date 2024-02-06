@@ -7,20 +7,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
 @RestController
-@RequestMapping("/api/v1/trajectories")
+@RequestMapping("/api/v1/")
 public class TrajectoryController {
     @Autowired
     private ITrajectory iTrajectory;
 
-    @GetMapping()
+
+    @PostMapping("postTrajectory")
+    public Trajectory saveTrajectory(@RequestBody Trajectory trajectory){
+        return iTrajectory.saveTrajectory(trajectory);
+    }
+
+    @PutMapping("putTrajectory")
+    public Trajectory UpdateTrajectory(@RequestBody Trajectory trajectory){
+        return iTrajectory.saveTrajectory(trajectory);
+    }
+
+
+    @GetMapping("getTrajectory")
     public Page<Trajectory> getTrajectoriesByTaxiId(
             @RequestParam Integer taxiId,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
@@ -29,5 +38,10 @@ public class TrajectoryController {
     ){
         PageRequest pageable = PageRequest.of(page, size);
         return iTrajectory.listTrajectoriesById(taxiId, date, pageable);
+    }
+
+    @DeleteMapping("deleteTrajectory")
+    public void deleteTrajectory(@RequestParam Integer id){
+        iTrajectory.deleteTrajectory(id);
     }
 }

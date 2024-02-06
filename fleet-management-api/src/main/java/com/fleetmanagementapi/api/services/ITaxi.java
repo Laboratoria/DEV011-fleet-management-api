@@ -12,6 +12,8 @@ public interface ITaxi {
 
     void delete(Integer id);
 
+    boolean existTaxi(Integer id);
+
 
 
 }

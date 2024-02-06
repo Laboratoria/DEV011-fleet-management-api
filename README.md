@@ -1,5 +1,71 @@
 # Fleet Management Software API
 
+Issue: 
+-Quiero repasar los conceptos que aprendi en este proyecto
+-agregar mas verbos http
+-agregar autentificacion
+-instalar DB local
+-Dockerizar la app
+-Optimizar la base de datos
+-Exportar DB a excel
+
+Adicional a eso quiero mejorar la seguridad de la aplicacion
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# Isuues:
+
+## Verbos HTTP
+
+Repasar los conceptos relacionados con los verbos HTTP utilizados en el proyecto.
+
+## Autenticación
+
+Agregar un sistema de autenticación robusto para proteger la aplicación. Considerar opciones como JWT, OAuth, o cualquier otro método seguro.
+
+## Instalación de Base de Datos Local
+
+Configurar una base de datos local para el desarrollo y pruebas.
+
+## Dockerización de la Aplicación
+
+Crear contenedores Docker para la aplicación y sus dependencias, facilitando el despliegue y la gestión del entorno.
+
+## Optimización de la Base de Datos
+
+Realizar ajustes y optimizaciones en la base de datos para mejorar el rendimiento. Esto puede incluir índices, normalización, o cualquier otra técnica relevante.
+
+## Exportar Base de Datos a Excel
+
+Implementar una funcionalidad para exportar datos de la base de datos a un archivo Excel. Buscar bibliotecas que lo hagan.
+
+## Mejoras en la Seguridad
+
+### Protección contra Inyección de SQL
+
+Implementar medidas para prevenir ataques de inyección SQL, como el uso de consultas preparadas o ORM.
+
+### Validación de Entradas
+
+Asegurar la validación adecuada de todas las entradas de usuario para prevenir ataques de XSS y CSRF.
+
+### Gestión de Sesiones
+
+Revisar y mejorar la gestión de sesiones para evitar vulnerabilidades.
+
+### Actualizaciones Regulares de Dependencias
+
+Mantener actualizadas todas las dependencias de la aplicación para abordar posibles vulnerabilidades de seguridad.
+
+### Configuración Segura de Servidores y Entornos
+
+Asegurar que la configuración del servidor y del entorno sea segura, siguiendo las mejores prácticas de seguridad.
+
+### Registro de Eventos y Monitoreo
+
+Implementar un sistema de registro de eventos y monitoreo para detectar y responder rápidamente a posibles amenazas.
+
+
+
 ## Índice
 
 * [1. Preámbulo](#1-preámbulo)
